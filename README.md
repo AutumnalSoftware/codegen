@@ -14,25 +14,21 @@ The system is described using a YAML model:
 
 ```
 measurements:
-
-Temperature
-Humidity
+  - Temperature
+  - Humidity
 
 queues:
-
-TemperatureQueue
+  - TemperatureQueue
 
 stages:
-
-TemperatureSensor
-Logger
+- TemperatureSensor
+- Logger
 
 connections:
-
-from: TemperatureSensor
-to: TemperatureQueue
-from: TemperatureQueue
-to: Logger
+  - from: TemperatureSensor
+    to: TemperatureQueue
+  - from: TemperatureQueue
+    to: Logger
 ```
 
 This model defines:
