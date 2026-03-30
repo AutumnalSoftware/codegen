@@ -1,0 +1,14 @@
+{% for s in model.stages %}
+struct {{ s }}
+{
+{% for c in model.connections %}
+{% if c.from == s %}
+    {{ c.to }}& output;
+{% endif %}
+{% if c.to == s %}
+    {{ c.from }}& input;
+{% endif %}
+{% endfor %}
+};
+
+{% endfor %}

@@ -1,0 +1,4 @@
+{% for q in model.queues %}
+using {{ q }} = moodycamel::ReaderWriterQueue<Temperature>;
+
+{% endfor %}

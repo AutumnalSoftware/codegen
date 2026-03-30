@@ -1,0 +1,15 @@
+class SensorPipeline
+{
+public:
+    void start();
+    void stop();
+
+private:
+{% for q in model.queues %}
+    {{ q }} {{ q[0]|lower }}{{ q[1:] }};
+{% endfor %}
+
+{% for s in model.stages %}
+    {{ s }} {{ s[0]|lower }}{{ s[1:] }}{ {% for c in model.connections %}{% if c.from == s %}{{ c.to[0]|lower }}{{ c.to[1:] }}{% elif c.to == s %}{{ c.from[0]|lower }}{{ c.from[1:] }}{% endif %}{% endfor %} };
+{% endfor %}
+};

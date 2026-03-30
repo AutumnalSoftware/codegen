@@ -1,0 +1,6 @@
+{% for m in model.measurements %}
+struct {{ m }}
+{
+    double value;
+};
+{% endfor %}
