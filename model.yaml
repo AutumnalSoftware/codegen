@@ -1,3 +1,5 @@
+output: built
+
 measurements:
   - Temperature
   - Humidity

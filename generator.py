@@ -2,7 +2,7 @@
 
 import yaml
 from jinja2 import Environment, FileSystemLoader
-
+from pathlib import Path
 
 def validate_model(model):
     stages = set(model.get('stages', []))
@@ -19,7 +19,7 @@ def validate_model(model):
             raise ValueError(f"Unknown destination: {dst}")
 
 
-def render_measurements(model):
+def render_measurements(model, output_dir):
     # Prepare the Jinja2 environment and load the template
     env = Environment(loader=FileSystemLoader('templates'),
             trim_blocks=True,
@@ -27,16 +27,16 @@ def render_measurements(model):
     template = env.get_template('measurements.h.j2')
 
     # Render the template with data from the YAML file
-    #output = template.render(measurements=model['measurements'])
     output = template.render(model=model)
 
     # Save the rendered output to a file
-    with open('output/measurements.h', 'w') as cpp_file:
+    #with open('output/measurements.h', 'w') as cpp_file:
+    with open(output_dir / 'measurements.h', 'w') as cpp_file:
         cpp_file.write(output)
 
     print("Generated measurements.h successfully.")
 
-def render_queues(model):
+def render_queues(model, output_dir):
     # Prepare the Jinja2 environment and load the template
     env = Environment(loader=FileSystemLoader('templates'),
             trim_blocks=True,
@@ -48,12 +48,12 @@ def render_queues(model):
     output = template.render(model=model)
 
     # Save the rendered output to a file
-    with open('output/queues.h', 'w') as cpp_file:
+    with open(output_dir / 'queues.h', 'w') as cpp_file:
         cpp_file.write(output)
 
     print("Generated queues.h successfully.")
 
-def render_stages(model):
+def render_stages(model, output_dir):
     # Prepare the Jinja2 environment and load the template
     env = Environment(loader=FileSystemLoader('templates'),
             trim_blocks=True,
@@ -64,12 +64,12 @@ def render_stages(model):
     output = template.render(model=model)
 
     # Save the rendered output to a file
-    with open('output/stages.h', 'w') as cpp_file:
+    with open(output_dir / 'stages.h', 'w') as cpp_file:
         cpp_file.write(output)
 
     print("Generated stages.h successfully.")
 
-def render_pipelines(model):
+def render_pipelines(model, output_dir):
     # Prepare the Jinja2 environment and load the template
     env = Environment(loader=FileSystemLoader('templates'),
             trim_blocks=True,
@@ -80,7 +80,7 @@ def render_pipelines(model):
     output = template.render(model=model)
 
     # Save the rendered output to a file
-    with open('output/pipeline.h', 'w') as cpp_file:
+    with open(output_dir / 'pipeline.h', 'w') as cpp_file:
         cpp_file.write(output)
 
     print("Generated pipeline.h successfully.")
@@ -91,14 +91,16 @@ def main():
         model = yaml.safe_load(yaml_file)
     validate_model(model)
 
-    render_measurements(model)
+    output_dir = Path(model.get('output', 'generated'))
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    render_queues(model)
+    render_measurements(model, output_dir)
 
-    render_stages(model)
+    render_queues(model, output_dir)
 
-    render_pipelines(model)
+    render_stages(model, output_dir)
+
+    render_pipelines(model, output_dir)
 
 if  __name__ == "__main__":
     main();
-
