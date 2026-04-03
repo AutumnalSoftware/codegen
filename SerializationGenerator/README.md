@@ -80,22 +80,25 @@ struct Temperature
 BdsMeasurementCodecs
 
 Explicit serialization functions:
-
+```
 BinaryWriteStream& writeTemperature(BinaryWriteStream& stream,
                                     const Temperature& measurement) noexcept
 {
     stream.writeDouble(measurement.value);
     return stream;
 }
+```
 MeasurementIO
 
 Debug/logging support:
-
+```
 std::ostream& operator<<(std::ostream& os, const Temperature& value)
 {
     os << "Temperature{value=" << value.value << "}";
     return os;
 }
+```
+
 Design Philosophy
 
 This generator is intentionally:
