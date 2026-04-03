@@ -101,7 +101,7 @@ std::ostream& operator<<(std::ostream& os, const Temperature& value)
 
 Design Philosophy
 
-This generator is intentionally:
+This generator is designed to be:
 
 - simple
 - explicit
