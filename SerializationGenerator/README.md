@@ -49,8 +49,9 @@ measurements:
 
 Each measurement:
 
-has a name
-contains zero or more fields
+- has a name
+- contains zero or more fields
+  
 each field defines:
-type
-serialization functions
+- type
+- serialization functions
