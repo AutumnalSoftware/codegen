@@ -1,0 +1,27 @@
+output: generated
+
+measurements:
+  - name: Empty
+    fields: []
+
+  - name: Temperature
+    fields:
+      - name: value
+        type: double
+        bds_write: writeDouble
+        bds_read: readDouble
+
+  - name: Position
+    fields:
+      - name: lat
+        type: double
+        bds_write: writeDouble
+        bds_read: readDouble
+      - name: lon
+        type: double
+        bds_write: writeDouble
+        bds_read: readDouble
+      - name: alt
+        type: double
+        bds_write: writeDouble
+        bds_read: readDouble

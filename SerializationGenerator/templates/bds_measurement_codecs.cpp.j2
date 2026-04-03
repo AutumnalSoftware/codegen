@@ -1,0 +1,40 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Autumnal Software
+
+#include "BdsMeasurementCodecs.h"
+#include "MeasurementTypes.h"
+#include "BinaryWriteStream.h"
+#include "BinaryReadStream.h"
+
+namespace weather
+{
+
+{% for m in model.measurements %}
+BinaryWriteStream& write{{ m.name }}(BinaryWriteStream& stream,
+                                     const {{ m.name }}& measurement) noexcept
+{
+{% if m.fields|length == 0 %}
+    (void)measurement;
+{% else %}
+{% for f in m.fields %}
+    stream.{{ f.bds_write }}(measurement.{{ f.name }});
+{% endfor %}
+{% endif %}
+    return stream;
+}
+
+BinaryReadStream& read{{ m.name }}(BinaryReadStream& stream,
+                                   {{ m.name }}& measurement) noexcept
+{
+{% if m.fields|length == 0 %}
+    (void)measurement;
+{% else %}
+{% for f in m.fields %}
+    stream.{{ f.bds_read }}(measurement.{{ f.name }});
+{% endfor %}
+{% endif %}
+    return stream;
+}
+
+{% endfor %}
+} // namespace weather
