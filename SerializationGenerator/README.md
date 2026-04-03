@@ -34,3 +34,23 @@ This reads model.yaml and generates output files in:
 ```
 generated/
 ```
+The generator expects a YAML file with this structure:
+```
+output: generated
+
+measurements:
+  - name: Temperature
+    fields:
+      - name: value
+        type: double
+        bds_write: writeDouble
+        bds_read: readDouble
+```
+
+Each measurement:
+
+has a name
+contains zero or more fields
+each field defines:
+type
+serialization functions
