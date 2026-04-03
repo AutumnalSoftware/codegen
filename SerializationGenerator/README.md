@@ -59,7 +59,7 @@ each field defines:
 Generated Output
 
 The generator produces:
-
+```
 generated/
 ├── MeasurementTypes.h
 ├── BdsMeasurementCodecs.h
@@ -67,13 +67,16 @@ generated/
 ├── MeasurementIO.h
 ├── MeasurementIO.cpp
 MeasurementTypes.h
+```
 
 Plain C++ value types:
-
+```
 struct Temperature
 {
     double value{};
 };
+```
+
 BdsMeasurementCodecs
 
 Explicit serialization functions:
